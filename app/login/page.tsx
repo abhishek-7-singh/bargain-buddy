@@ -1,8 +1,8 @@
-"use client";
+'use client'
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";  // Corrected import
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
@@ -17,11 +17,11 @@ const LoginPage: React.FC<LoginProps> = () => {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const onLogin = async () => {
+  const onLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      console.log("My response is response");
       console.log("Login success", response.data);
       toast.success("Login success");
       router.push("/");
@@ -34,11 +34,7 @@ const LoginPage: React.FC<LoginProps> = () => {
   };
 
   useEffect(() => {
-    if (user.email.length > 0 && user.password.length > 0) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
+    setButtonDisabled(!(user.email.length > 0 && user.password.length > 0));
   }, [user]);
 
   return (
@@ -47,10 +43,10 @@ const LoginPage: React.FC<LoginProps> = () => {
         <h1 className="head-text text-primary font-bold text-center mb-0">
           Log<span className="text-primary mb-4">in</span>
         </h1>
-        <h1 >{loading ? "Processing" : ""}</h1>
+        <h1>{loading ? "Processing" : ""}</h1>
         <div className="items-center">
           <Image
-            src="assets/icons/hand-drawn-arrow.svg"
+            src="/assets/icons/hand-drawn-arrow.svg"
             alt="arrow"
             width={150}
             height={175}
@@ -59,10 +55,7 @@ const LoginPage: React.FC<LoginProps> = () => {
         </div>
         <form onSubmit={onLogin}>
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
-            >
+            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
               Email
             </label>
             <input
@@ -75,10 +68,7 @@ const LoginPage: React.FC<LoginProps> = () => {
             />
           </div>
           <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-bold mb-2"
-            >
+            <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
               Password
             </label>
             <input
@@ -94,8 +84,9 @@ const LoginPage: React.FC<LoginProps> = () => {
             <button
               type="submit"
               className="bg-white-500 hover:text-red-700 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              disabled={buttonDisabled}
             >
-              {loading? "processing": "Login"}
+              {loading ? "Processing" : "Login"}
             </button>
             <a
               href="#"
@@ -105,8 +96,8 @@ const LoginPage: React.FC<LoginProps> = () => {
             </a>
           </div>
           <div className="btn flex justify-end mt-4">
-            <Link href="/signup" className="text-primary hover:underline">
-              Sign Up
+            <Link href="/signup" passHref>
+            Sign Up
             </Link>
           </div>
         </form>
