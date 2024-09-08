@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
       title,
       description,
       price,
-      imageUrl,
+      image:imageUrl,
       sellerdetail
     });
 

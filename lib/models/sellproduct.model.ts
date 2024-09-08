@@ -1,10 +1,10 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface ISellProduct extends Document {
+interface SellProduct extends Document {
   title: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
   sellerdetail:string;
 //   createdAt: Date;
 //   updatedAt: Date;
@@ -15,7 +15,7 @@ const sellProductSchema: Schema = new Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    imageUrl: { type: String, required: true },
+    image: { type: String, required: true },
     sellerdetail: { type: String, required: true}
   },
   {

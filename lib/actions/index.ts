@@ -59,6 +59,19 @@ export async function getProductById(productId: string) {
     console.log(error);
   }
 }
+export async function getSellerProductById(productId: string) {
+  try {
+    connectToDB();
+    const product = await SellProduct.findOne({ _id: productId });
+    if (!product) {
+      return null;
+    } else {
+      return product;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getAllProducts() {
   try {
     connectToDB();

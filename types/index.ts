@@ -26,6 +26,15 @@ export type PriceHistoryItem = {
     isOutOfStock: Boolean;
     users?: User[];
   };
+  export type SellProduct = {
+    title: string;
+      description: string;
+      price: number;
+      imageUrl: string;
+      sellerdetaiL : string;
+
+  };
+
   
   export type NotificationType =
     | "WELCOME"
