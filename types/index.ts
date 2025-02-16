@@ -26,7 +26,8 @@ export type PriceHistoryItem = {
     isOutOfStock: Boolean;
     users?: User[];
   };
-  export type SellProduct = {
+  export type SellProduct = Product &{
+    _id?: string;
     title: string;
       description: string;
       price: number;
