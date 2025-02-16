@@ -83,31 +83,60 @@ export async function generateEmailBody(
   return { subject, body };
 }
 
+// const transporter = nodemailer.createTransport({
+//   pool: true,
+//   service: "hotmail",
+//   port: 2525,
+//   auth: {
+//     user: "bargainbuddy.cron@outlook.com",
+//     pass: process.env.EMAIL_PASSWORD,
+//   },
+//   maxConnection: 1,
+// });
+
+// export const sendEmail = async (
+//   emailContent: EmailContent,
+//   sendTo: string[]
+// ) => {
+//   const mailOptions = {
+//     from: "bargainbuddy.cron@outlook.com",
+//     to: sendTo,
+//     html: emailContent.body,
+//     subject: emailContent.subject,
+//   };
+
+//   transporter.sendMail(mailOptions, (error: any, info: any)=>{
+//     if(error) return console.log(error);
+
+//     console.log('Email sent: ', info);
+//   })
+// };
 const transporter = nodemailer.createTransport({
   pool: true,
-  service: "hotmail",
-  port: 2525,
+  host: "smtp.office365.com", // Correct SMTP host for Hotmail
+  port: 587, // Use 587 for TLS (or 465 for SSL)
+  secure: false, // Use `true` for port 465 (SSL)
   auth: {
     user: "bargainbuddy.cron@outlook.com",
-    pass: process.env.EMAIL_PASSWORD,
+    pass: process.env.EMAIL_PASSWORD, // Ensure this is set in your environment variables
   },
-  maxConnection: 1,
+  maxConnections: 1, // Fixed typo (was `maxConnection`)
 });
 
-export const sendEmail = async (
-  emailContent: EmailContent,
-  sendTo: string[]
-) => {
-  const mailOptions = {
-    from: "bargainbuddy.cron@outlook.com",
-    to: sendTo,
-    html: emailContent.body,
-    subject: emailContent.subject,
-  };
+export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
+  try {
+    const mailOptions = {
+      from: "bargainbuddy.cron@outlook.com",
+      to: sendTo.join(","), // Convert array to comma-separated string
+      subject: emailContent.subject,
+      html: emailContent.body,
+    };
 
-  transporter.sendMail(mailOptions, (error: any, info: any)=>{
-    if(error) return console.log(error);
-
-    console.log('Email sent: ', info);
-  })
+    const info = await transporter.sendMail(mailOptions);
+    console.log("✅ Email sent:", info);
+    return info;
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+    throw new Error("Failed to send email.");
+  }
 };
