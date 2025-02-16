@@ -4,24 +4,22 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types";
-import { format } from "path";
 import { formatNumber } from "@/lib/utils";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
 import Modal from "@/components/Modal";
-//import Image from 'next/image';
 
 type Props = {
   params: { id: string };
 };
+
 const ProductDetails = async ({ params: { id } }: Props) => {
   const product: Product = await getProductById(id);
   if (!product) redirect("/");
 
-  const similarProducts = await getSimilarProducts(id);
+  const similarProducts: Product[] = await getSimilarProducts(id);
 
   return (
-    // <div>{id}</div>
     <div className="product-container">
       <div className="flex gap-28 xl:flex-row flex-col">
         <div className="product-image">
@@ -70,7 +68,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <div className="p-2 bg-white-200 rounded-10">
                 <Image
                   src="/assets/icons/share.svg"
-                  alt="bookmark"
+                  alt="share"
                   width={20}
                   height={20}
                 />
@@ -107,12 +105,12 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                     height={16}
                   />
                   <p className="text-sm text-secondary font-semibold">
-                    {product.reviewsCount}Reviews
+                    {product.reviewsCount} Reviews
                   </p>
                 </div>
               </div>
               <p className="text-sm text-black opacity-50">
-                <span className="text-primary-green font-semibold">93%</span>of
+                <span className="text-primary-green font-semibold">93%</span> of
                 the buyers have recommended this.
               </p>
             </div>
@@ -122,33 +120,25 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <PriceInfoCard
                 title="Current Price"
                 iconSrc="/assets/icons/price-tag.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.currentPrice
-                )}`}
+                value={`${product.currency} ${formatNumber(product.currentPrice)}`}
                 borderColor="#b6dbff"
               />
               <PriceInfoCard
                 title="Average Price"
                 iconSrc="/assets/icons/chart.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.averagePrice
-                )}`}
+                value={`${product.currency} ${formatNumber(product.averagePrice)}`}
                 borderColor="#b6dbff"
               />
               <PriceInfoCard
                 title="Highest Price"
                 iconSrc="/assets/icons/arrow-up.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.highestPrice
-                )}`}
+                value={`${product.currency} ${formatNumber(product.highestPrice)}`}
                 borderColor="#b6dbff"
               />
               <PriceInfoCard
                 title="Lowest Price"
                 iconSrc="/assets/icons/arrow-down.svg"
-                value={`${product.currency} ${formatNumber(
-                  product.lowestPrice
-                )}`}
+                value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
                 borderColor="#BEFFC5"
               />
             </div>
@@ -178,11 +168,11 @@ const ProductDetails = async ({ params: { id } }: Props) => {
         </button>
       </div>
 
-      {similarProducts && similarProducts?.length > 0 && (
+      {similarProducts && similarProducts.length > 0 && (
         <div className="py-14 flex flex-col gap-2 w-full">
           <p className="section-text">Similar Products</p>
           <div className="flex flex-wrap gap-10 mt-7 w-full">
-            {similarProducts.map((product) => (
+            {similarProducts.map((product: Product) => (
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
