@@ -30,8 +30,8 @@ export type PriceHistoryItem = {
     title: string;
       description: string;
       price: number;
-      imageUrl: string;
-      sellerdetaiL : string;
+      image: string;
+      sellerdetail : string;
 
   };
 
