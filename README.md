@@ -7,7 +7,6 @@ Welcome to **BargainBuddy**, a powerful web application designed to monitor prod
 Built with **Next.js 14** and **TypeScript**, this application is optimized for **scalability**, **maintainability**, and an **interactive user experience**. Whether you're a bargain hunter or a local business owner looking to optimize sales, our platform provides real-time price tracking and seamless buyer-seller communication.
 
 ![image](https://github.com/user-attachments/assets/7042c017-ca73-459e-9c37-62840c03b108)
-![image](https://github.com/user-attachments/assets/2109d134-5384-4777-9292-3808b868555e)
 
 ## 🚀 Features
 - 🔍 **Real-time Price Monitoring** – Tracks product prices and detects changes instantly.
@@ -58,14 +57,11 @@ npm run dev
 3. If a price drop is detected, users receive **real-time alerts**.
 4. Users can make informed purchases at the right time.
 
-![image](https://github.com/user-attachments/assets/efb8d123-41b6-43cb-8b85-2cadb1ee0c47)
-![image](https://github.com/user-attachments/assets/55a7a2cd-9343-4116-8dbc-79756c5022be)
 
 ## 🌎 Supporting Local Businesses
 Beyond tracking prices, this application empowers **local sellers** by facilitating direct transactions with buyers. This reduces environmental impact and strengthens regional economies while providing consumers with cost-effective purchasing options.
 
 ![image](https://github.com/user-attachments/assets/0ef2142f-daa8-46fb-b36b-64a7f3922d72)
-![image](https://github.com/user-attachments/assets/53858800-0a79-4183-ab50-1699a2ef1a3b)
 
 ## 🤝 Contributing
 We welcome contributions! If you'd like to improve the project, follow these steps:
@@ -75,8 +71,6 @@ We welcome contributions! If you'd like to improve the project, follow these ste
 4. **Push to your branch** (`git push origin feature-new-functionality`)
 5. **Open a pull request**
 
-## 📜 License
-This project is licensed under the **MIT License**.
 
 ## 📬 Contact
 For any questions or suggestions, feel free to reach out!
